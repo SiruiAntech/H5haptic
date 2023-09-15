@@ -1,0 +1,14 @@
+{
+    "applinks":{
+        "apps":[],
+        "details":[
+            {
+                "appID":"KRJQL3B2XL.com.anthap.touch",
+                "paths":["*"]
+            }
+        ]
+    },
+    "appclips": {
+        "apps": ["com.anthap.touch.Clip"]
+    }
+}
