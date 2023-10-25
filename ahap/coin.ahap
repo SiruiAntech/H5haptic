@@ -1,0 +1,42 @@
+{
+    "Version": 1.0,
+    "Metadata": {
+        "Project": "Dragon",
+        "Created": "ZWC",
+        "Description": "吃金币2触.wav"
+    },
+    "Pattern": [
+        {
+            "Event": {
+                "EventType": "HapticTransient",
+                "Time": 0.252,
+                "EventParameters": [
+                    {
+                        "ParameterID": "HapticIntensity",
+                        "ParameterValue": 0.2
+                    },
+                    {
+                        "ParameterID": "HapticSharpness",
+                        "ParameterValue": 1
+                    }
+                ]
+            }
+        },
+        {
+            "Event": {
+                "EventType": "HapticTransient",
+                "Time": 0.30533333333333333,
+                "EventParameters": [
+                    {
+                        "ParameterID": "HapticIntensity",
+                        "ParameterValue": 1
+                    },
+                    {
+                        "ParameterID": "HapticSharpness",
+                        "ParameterValue": 1
+                    }
+                ]
+            }
+        }
+    ]
+}
