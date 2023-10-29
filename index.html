@@ -55,22 +55,22 @@
           <button onclick="closeConsoleOutput()">关闭</button>
       </div>
 
-    <video class="videoitem" style="margin-top: 20px;" poster="images/snowpic.png" id="video1" src="video1.mp4" controls></video>
+    <video class="videoitem" preload="auto" style="margin-top: 20px;" poster="images/snowpic.png" id="video1" src="video1.mp4" controls></video>
     <span style="margin-top: 7px;">滑雪开场</span>
-    <video class="videoitem" poster="images/fireworkpic.png" id="video2" src="video2.mp4" controls></video>
+    <video class="videoitem" preload="auto" poster="images/fireworkpic.png" id="video2" src="video2.mp4" controls></video>
     <span style="margin-top: 7px;">终点礼花</span>
     <div style="margin-top: 47px; display: flex; flex-direction: row; justify-content: center;">
       <div style="width: 50vw; display: flex; flex-direction: column; align-items: center;">
         <div class="littlerex" style="background-color: #EAEAEA;">
-          <img id="coin" src="images/coin.svg" alt="吃金币" style="width: 35px; height: 35px; z-index: 10;">
-          <audio id="coinaudio" src="coin.wav"></audio>
+          <img id="coin" src="images/coin.svg" alt="吃金币" style="width: 75px; height: 75px; z-index: 10;">
+          <audio id="coinaudio" src="coin.wav" preload="auto"></audio>
         </div>
         <span style="margin-top: 7px;">吃金币</span>
       </div>
       <div style="width: 50vw; display: flex; flex-direction: column; align-items: center;">
         <div class="littlerex" style="background-color: #EAEAEA;">
-          <img id="flag" src="images/flag.svg" alt="过旗门" style="width: 35px; height: 35px; z-index: 10;">
-          <audio id="flagaudio" src="flag.wav"></audio>
+          <img id="flag" src="images/flag.svg" alt="过旗门" style="width: 75px; height: 75px; z-index: 10;">
+          <audio id="flagaudio" src="flag.wav" preload="auto"></audio>
         </div>
         <span style="margin-top: 7px;">过旗门</span>
       </div>
@@ -112,6 +112,7 @@
 
 
     let timelistdata = [];
+    //以get请求方式加载所有触觉json文件 ['ahap/video1.ahap', 'ahap/video2.ahap', 'ahap/coin.ahap', 'ahap/flag.ahap']
     data.jsondata.forEach((element, index) => {
       var jsonData
       $(document).ready(function () {
@@ -135,7 +136,7 @@
               }
             })
             timelistdata[index] = timelist;
-            data.timePoint = timelistdata
+            data.timePoint = timelistdata  //将触觉震动数据加载到data.timePoint中
           }
         }
 
@@ -156,10 +157,12 @@
       // 在这里编写点击事件的处理逻辑
       var audioElement = document.getElementById('coinaudio');
 
-      audioElement.addEventListener('play', function () {
-        setTimeout(()=>{vibrate(-1, data.timePoint[2])},data.delay)
-        
-      }); audioElement.play();
+      audioElement.addEventListener('canplay', function () { //为play函数添加监听器
+        console.log("ready to play "+new Date().getTime());
+        setTimeout(()=>{vibrate(-1, data.timePoint[2])},data.delay) //delay控制点击之后多久开始震动
+      });
+
+      audioElement.play();
     });
 
 
@@ -171,13 +174,13 @@
       // 在这里编写点击事件的处理逻辑
       var audioElement = document.getElementById('flagaudio');
 
-      audioElement.addEventListener('play', function () {
+      audioElement.addEventListener('canplay', function () {
         setTimeout(()=>{vibrate(-1, data.timePoint[3])},data.delay)
       }); audioElement.play();
     });
 
     var video1 = document.getElementById('video1')
-    video1.addEventListener('play', function (e) {
+    video1.addEventListener('canplay', function (e) {
       data.playflag = true
       data.currentIndex = 0
     })
@@ -227,7 +230,7 @@
     })
 
     var video2 = document.getElementById('video2')
-    video2.addEventListener('play', function (e) {
+    video2.addEventListener('canplay', function (e) {
       data.playflag = true
       data.currentIndex = 1
     })
@@ -313,9 +316,9 @@ function closeConsoleOutput() {
 
     function vibrate(i, allay) {
       var delay = -2
-      if (i == -1) {
-        var step = parseFloat(delay) + parseFloat(allay[i + 1][0]) * 1000;
-        if (step < 0) step = 1
+      if (i == -1) { //当前是第一个震动
+        var step = parseFloat(delay) + parseFloat(allay[i + 1][0]) * 1000; //allay中的时间以秒为单位，step以ms为单位
+        if (step < 0) step = 1 //已经错过震动，等待1ms后处理下一个震动
       }
       else {
         var step = parseFloat(delay) + parseFloat(allay[i + 1][0] - allay[i][0]) * 1000;
@@ -324,7 +327,7 @@ function closeConsoleOutput() {
       if (allay[i + 1][1] > 1) {
         console.log('wait' + step)
         data.timer = setTimeout(() => {
-          clearTimeout(data.timer)
+          clearTimeout(data.timer) 
           navigator.vibrate(allay[i + 1][1]);
           console.log(new Date().getTime())
           console.log('长震动'+allay[i + 1][1])
