@@ -55,22 +55,22 @@
           <button onclick="closeConsoleOutput()">关闭</button>
       </div>
 
-    <video class="videoitem" preload="auto" style="margin-top: 20px;" poster="images/snowpic.png" id="video1" src="video1.mp4" controls></video>
+    <video class="videoitem" preload="auto" style="margin-top: 20px;" poster="images/snowpic.png" id="video1" controls></video>
     <span style="margin-top: 7px;">滑雪开场</span>
-    <video class="videoitem" preload="auto" poster="images/fireworkpic.png" id="video2" src="video2.mp4" controls></video>
+    <video class="videoitem" preload="auto" poster="images/fireworkpic.png" id="video2"  controls></video>
     <span style="margin-top: 7px;">终点礼花</span>
     <div style="margin-top: 47px; display: flex; flex-direction: row; justify-content: center;">
       <div style="width: 50vw; display: flex; flex-direction: column; align-items: center;">
         <div class="littlerex" style="background-color: #EAEAEA;">
           <img id="coin" src="images/coin.svg" alt="吃金币" style="width: 75px; height: 75px; z-index: 10;">
-          <audio id="coinaudio" src="coin.wav" preload="auto"></audio>
+          <audio id="coinaudio"  preload="auto"></audio>
         </div>
         <span style="margin-top: 7px;">吃金币</span>
       </div>
       <div style="width: 50vw; display: flex; flex-direction: column; align-items: center;">
         <div class="littlerex" style="background-color: #EAEAEA;">
           <img id="flag" src="images/flag.svg" alt="过旗门" style="width: 75px; height: 75px; z-index: 10;">
-          <audio id="flagaudio" src="flag.wav" preload="auto"></audio>
+          <audio id="flagaudio"  preload="auto"></audio>
         </div>
         <span style="margin-top: 7px;">过旗门</span>
       </div>
@@ -150,18 +150,34 @@
     }
     );
 
+    //以fetch方式请求所有视频和音频资源
+    //视频 (.mp4)
+    loadSource('video1','video1.mp4');
+    loadSource('video2','video2.mp4');
+    
+    //音频 (.wav)
+    loadSource('coinaudio','coin.wav');
+    loadSource('flagaudio','flag.wav');
+
+    console.log("load source success");
+
     var imageElement1 = document.getElementById('coin');
+   
 
     // 添加点击事件处理程序
     imageElement1.addEventListener('click', function () {
       // 在这里编写点击事件的处理逻辑
       var audioElement = document.getElementById('coinaudio');
 
-      audioElement.addEventListener('canplay', function () { //为play函数添加监听器
-        console.log("ready to play "+new Date().getTime());
+      audioElement.addEventListener('play', function () { //为play函数添加监听器
         setTimeout(()=>{vibrate(-1, data.timePoint[2])},data.delay) //delay控制点击之后多久开始震动
       });
+      audioElement.addEventListener('playing',function(){
+        console.log("playing "+ new Date().getTime());
+      })
 
+
+      console.log('ready to play'+new Date().getTime());
       audioElement.play();
     });
 
@@ -174,13 +190,13 @@
       // 在这里编写点击事件的处理逻辑
       var audioElement = document.getElementById('flagaudio');
 
-      audioElement.addEventListener('canplay', function () {
+      audioElement.addEventListener('play', function () {
         setTimeout(()=>{vibrate(-1, data.timePoint[3])},data.delay)
       }); audioElement.play();
     });
 
     var video1 = document.getElementById('video1')
-    video1.addEventListener('canplay', function (e) {
+    video1.addEventListener('play', function (e) {
       data.playflag = true
       data.currentIndex = 0
     })
@@ -230,7 +246,7 @@
     })
 
     var video2 = document.getElementById('video2')
-    video2.addEventListener('canplay', function (e) {
+    video2.addEventListener('play', function (e) {
       data.playflag = true
       data.currentIndex = 1
     })
@@ -302,6 +318,23 @@
     // 显示console.log输出对话框
     var consoleOutputDialog = document.getElementById("consoleOutputDialog");
     consoleOutputDialog.style.display = "block";
+}
+
+function loadSource(elementId,mediaSrc){
+  /// 用于一次性加载音频和视频资源 防止不同步的产生
+  fetch(mediaSrc)
+  .then(response => response.blob())
+  .then(blob => {
+    const mediaSrc = URL.createObjectURL(blob);
+    const mediaElement = document.getElementById(elementId);
+    if (mediaElement){
+      mediaElement.src = mediaSrc;
+    }
+  })
+  .catch(error => {
+    console.error('Error in load media:',error);
+  })
+  
 }
 
 function closeConsoleOutput() {
