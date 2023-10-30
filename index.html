@@ -348,7 +348,7 @@ function closeConsoleOutput() {
 
 
     function vibrate(i, allay) {
-      var delay = -2
+      var delay = -5
       if (i == -1) { //当前是第一个震动
         var step = parseFloat(delay) + parseFloat(allay[i + 1][0]) * 1000; //allay中的时间以秒为单位，step以ms为单位
         if (step < 0) step = 1 //已经错过震动，等待1ms后处理下一个震动
