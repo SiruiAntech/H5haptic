@@ -1,0 +1,42 @@
+{
+    "Version": 1.0,
+    "Metadata": {
+        "Project": "Dragon",
+        "Created": "ZWC",
+        "Description": "巴黎世家_for_ahap_v2.wav"
+    },
+    "Pattern": [
+        {
+            "Event": {
+                "EventType": "HapticTransient",
+                "Time": 0.06799999999999962,
+                "EventParameters": [
+                    {
+                        "ParameterID": "HapticIntensity",
+                        "ParameterValue": 60
+                    },
+                    {
+                        "ParameterID": "HapticSharpness",
+                        "ParameterValue": 0.5072967665811406
+                    }
+                ]
+            }
+        },
+        {
+            "Event": {
+                "EventType": "HapticTransient",
+                "Time": 0.2550000000000008,
+                "EventParameters": [
+                    {
+                        "ParameterID": "HapticIntensity",
+                        "ParameterValue": 0.02854968
+                    },
+                    {
+                        "ParameterID": "HapticSharpness",
+                        "ParameterValue": 0.5152932071824293
+                    }
+                ]
+            }
+        }
+    ]
+}

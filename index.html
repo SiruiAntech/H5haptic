@@ -1,4 +1,4 @@
-<!--version=0.2.2--->
+<!--version=0.2.3--->
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -11,419 +11,623 @@
       font-size: 14px;
       position: absolute;
       z-index: 0;
-      width: 100%;
-      height: 100%;
-      top: 0;
+      width: 90%;
+      height: 90%;
+      
+      top: 5%;
+      left: 5%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
+    .videopart {
+        height: 70%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .audiopart{
+        height: 30%;
+        width: 100%;
 
+        display: flex;
+        flex-direction: row;
+       
+        justify-content: center;
+        align-items: center;
+        
+        
+    }
     .videoitem {
-      margin-top: 41px;
-      width: 297px;
-      height: 167px;
+      /**只需要居中就行 不特定设置宽度和高度*/
+      max-width: 80%;
+      max-height: 90%; /*根据poster的大小动态设定*/
       /* Add your styles for .page-video here */
     }
-
+    .audioitem{
+        /*设定button和 居中对齐*/
+      
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .littlerex {
+      border-radius: 10px;
+     
+      width: 112px;
+      /* 宽度为122像素 */
+      height: 120px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-radius: 10px;
-      margin-left: 27.5px;
-      margin-right: 27.5px;
-      width: 122px;
-      /* 宽度为122像素 */
-      height: 128px;
+      
+      background-color: #B9B4C7;
       /* 高度为128像素 */
     }
-
+    .icon {
+        height: 35%;
+        z-index: 10;
+        opacity: 0.8;
+    }
+    .audiobutton{
+        background-color: #D8D8D8;
+        /*border-color: #B9B4C7;*/
+        border-radius: 10px;
+        margin-left: 40px;
+        margin-right: 40px;
+        width: 100px;
+        height: 108px;
+    }
+    .audiobutton:active{
+        background-color: #F3F3F3;
+    }
 
     /* Add styles for other classes as needed */
   </style>
 </head>
+<body >
+    <div class="container">
+        <!---video-->
+        <div  class="videopart" >
+            <video class="videoitem" id="video1" src="https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/balenciaga_screenrecording.mp4" preload="auto" controls></video>
+            <!---balenciaga_screenrecording-->
+          </div>
 
-<body>
-  <div class="container">
-    <label style="margin-top: 100px;" for="numberInput">请输入延迟：</label>
-    <input type="number" id="numberInput" value="0" oninput="handleInput()">
-    <button style="margin-top: 10px;" onclick="showConsoleOutput()">显示console.log输出</button>
-      <div id="consoleOutputDialog" style="display: none;">
-          <h2>console.log输出：</h2>
-          <pre id="consoleOutputContent"></pre>
-          <button onclick="closeConsoleOutput()">关闭</button>
-      </div>
-
-    <video class="videoitem" preload="auto" style="margin-top: 20px;" poster="images/snowpic.png" id="video1" ></video>
-    <span style="margin-top: 7px;">滑雪开场</span>
-    <video class="videoitem" preload="auto" poster="images/fireworkpic.png" id="video2"></video>
-    <span style="margin-top: 7px;">终点礼花</span>
-    <div style="margin-top: 47px; display: flex; flex-direction: row; justify-content: center;">
-      <div style="width: 50vw; display: flex; flex-direction: column; align-items: center;">
-        <div id="coin" class="littlerex" style="background-color: #EAEAEA;margin-bottom: 10px;">
-          <img src="images/coin.svg" alt="吃金币" style="width: 35px; height: 35px; z-index: 10;">
+        <!--audio--->
+        <div class="audiopart" id="audiopart">
+            <!----
+            <div class="audioitem">
+                <button class="audiobutton" id="321GO">
+                    <img src="images/321GO.png" alt="321GO" class="icon">
+                    <audio id="321GOaudio"  preload="auto" ></audio>
+                </button>
+                <span style="margin-top: 7px;">321GO</span>
+            </div>
+            
+            <div  class="audioitem">
+                <button class="audiobutton" id="321GO">
+                    <img src="images/loading.gif" alt="321GO" class="icon">
+                    <audio id="321GOaudio"  preload="auto" ></audio>
+                </button>
+                <span style="margin-top: 7px;">321GO</span>
+            </div>
+            
+            <div class="audioitem">
+                <button class="audiobutton" id="321GO">
+                    <img src="images/321GO.png" alt="321GO" class="icon">
+                    <audio id="321GOaudio"  preload="auto" ></audio>
+                </button>
+                <span style="margin-top: 7px;">321GO</span>
+            </div> 
+            ---->
         </div>
-        <audio id="coinaudio"  preload="auto" controls></audio>
-        <span style="margin-top: 7px;">吃金币</span>
-      </div>
-      <div style="width: 50vw; display: flex; flex-direction: column; align-items: center;">
-        <div id="flag" class="littlerex" style="background-color: #EAEAEA;margin-bottom: 10px;">
-          <img  src="images/flag.svg" alt="过旗门" style="width: 35px; height: 35px; z-index: 10;">
-        </div>
-        <audio id="flagaudio"  preload="auto" controls></audio>
-        <span style="margin-top: 7px;">过旗门</span>
-      </div>
+        
+        <!--321GO  Hit_gate Falling-->
+        
     </div>
 
-  </div>
-  <script type="text/javascript" src="jquery.js"></script>
+    <!--script-->
 
-  <script type="text/javascript">
-    var data = {
-      oncoin: false,
-      onflag: false,
-
-      touzidelay: -5,
-      timer: null,
-      delayflag: false,
-      call: [false, false, false, false],
-      isShow: [true, true],
-      fullScreenFlag: [false, false],
-      src_container: ['', ''],
-      src: ['https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/huaxue.mp4?sign=d55ad5c0907b19be598984f9d7f1fde9&t=1689664669', 'https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/lihua.mp4?sign=63224e4585442a5b149043e547c4b5a0&t=1689746178'],
-      music_src: ['https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/coin.wav?sign=aaea5b47d6c6f4a3f67140b676541e9f&t=1689664629', 'https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/flag.wav?sign=85b1f92a2b3f6f2e75de35c968334fcb&t=1689664641'],
-      poster: ['cloud://touchdemo-0grtzfen1fa5e367.746f-touchdemo-0grtzfen1fa5e367-1317436880/snowpic.png', 'cloud://touchdemo-0grtzfen1fa5e367.746f-touchdemo-0grtzfen1fa5e367-1317436880/fireworkpic.png'],
-      jsondata: ['ahap/video1.ahap', 'ahap/video2.ahap', 'ahap/coin.ahap', 'ahap/flag.ahap'],
-
-      vider: '',
-      w: 0,
-      h: 0,
-      progress: [100, 100],
-      timePoint: [],
-      flag: [],
-      delay: 0,
-      videoPlayIcon: '../../images/playbutton.svg',
-      startlong: 26.265,
-      endlong: 28.775,
-      currentIndex: 0,
-      playflag: false
-    };
-
-
-    let timelistdata = [];
-    //以get请求方式加载所有触觉json文件 ['ahap/video1.ahap', 'ahap/video2.ahap', 'ahap/coin.ahap', 'ahap/flag.ahap']
-    data.jsondata.forEach((element, index) => {
-      var jsonData
-      $(document).ready(function () {
-        $.ajax({
-          url: element,//json文件位置，文件名
-          type: "GET",//请求方式为get
-          dataType: "json", //返回数据格式为json
-          async: false,
-          success: function (jsondata) {
-            let videoData = jsondata.Pattern;
-            let timelist = [];
-            let hapticlist = [0, 0];
-            videoData.forEach(element => {
-              if (element["Event"]) {
-                if (element["Event"]["EventType"] == "HapticTransient") {
-                  hapticlist[0] = element["Event"]["Time"];
-                  hapticlist[1] = element["Event"]["EventParameters"][0]["ParameterValue"];
-                  timelist.push([hapticlist[0], hapticlist[1]]);
-
-                }
-              }
-            })
-            timelistdata[index] = timelist;
-            data.timePoint = timelistdata  //将触觉震动数据加载到data.timePoint中
-          }
-        }
-
-        )
-
-
-
-
-      })
-
-    }
-    );
-
-    //以fetch方式请求所有视频和音频资源
-    //视频 (.mp4)
-    loadSource('video1','video1.mp4');
-    loadSource('video2','video2.mp4');
-    
-    //音频 (.wav)
-    loadSource('coinaudio','coin.wav');
-    loadSource('flagaudio','flag.wav');
-
-    console.log("load source success" + new Date().getTime());
-
-
-    var imageElement1 = document.getElementById('coin');
-    
-
-    // 添加点击事件处理程序
-    imageElement1.addEventListener('click', function () {
-      // 在这里编写点击事件的处理逻辑
-      var audioElement = document.getElementById('coinaudio');
-
-      audioElement.addEventListener('play', function () { //为play函数添加监听器
-        setTimeout(()=>{vibrate(-1, data.timePoint[2])},data.delay) //delay控制点击之后多久开始震动
-      });
-      audioElement.addEventListener('playing',function(){
-        console.log("playing "+ new Date().getTime());
-      })
-
-
-      console.log('ready to play'+new Date().getTime());
-      audioElement.play();
-    });
-
-
-
-    var imageElement2 = document.getElementById('flag');
-
-    // 添加点击事件处理程序
-    imageElement2.addEventListener('click', function () {
-      // 在这里编写点击事件的处理逻辑
-      var audioElement = document.getElementById('flagaudio');
-
-      audioElement.addEventListener('play', function () {
-        setTimeout(()=>{vibrate(-1, data.timePoint[3])},data.delay)
-      }); audioElement.play();
-    });
-
-    var video1 = document.getElementById('video1')
-
-
-
-    video1.addEventListener('progress', function() {
-      var buffered = video1.buffered;
-      var videoDuration = video1.duration;
-      
-      video1.addEventListener("canplaythrough",function(){
-        if (videoDuration > 0 && buffered.length > 0 && buffered.end(buffered.length - 1) >= videoDuration) {
-          video1.controls = true;
-          console.log("video1 ok "+new Date().getTime());
-        }
-      })
-    });
-
-
-    video1.addEventListener('play', function (e) {
-      data.playflag = true
-      data.currentIndex = 0
-    })
-    video1.addEventListener('pause', function (e) {
-      clearTimeout(data.timer)
-      clearTimeout(data.timer_long)
-    })
-    video1.addEventListener('ended', function() {
-      clearTimeout(data.timer)
-      clearTimeout(data.timer_long)
-            exitFullScreen();
-        });
-    video1.addEventListener('timeupdate', function (e) {
-      var currentTime = video1.currentTime;
-      console.log(currentTime)
-      let delaytime = data.delay / 1000;
-      console.log(new Date().getTime())
-      console.log('time:' + currentTime);
-
-      let interval = 0.5;
-      let stren = 'heavy';
-      let allay = [];
-      allay.length = 0;
-
-      data.timePoint[0].forEach((element, index) => {
-
-        if (element[0] - currentTime + delaytime <= interval && element[0] - currentTime + delaytime > 0) {
-
-          console.log('timepoint:' + element[0]);
-          let longFlag = (element[0] > data.startlong - 0.01) && (element[0] < data.endlong + 0.01);
-          allay.push([(element[0] + delaytime - currentTime), element[1], 0]);
-
-        }/////
-      });
-      // if (data.currentIndex == 1) {
-      //   if (0.766 - currentTime + delaytime <= interval && 0.766 - currentTime + delaytime > 0) {
-      //     allay.push([(0.766 + delaytime - currentTime), 1, 1])
-      //   }
-
-      // }
-      if (allay.length > 0) {
-        clearTimeout(data.timer)
-        clearTimeout(data.timer_long)
-        vibrate(-1, allay)
-      }
-
-    })
-
-    var video2 = document.getElementById('video2');
-
-    video2.addEventListener('progress', function() {
-      var buffered = video2.buffered;
-      var videoDuration = video2.duration;
-      
-      video2.addEventListener("canplaythrough",function(){
-        if (videoDuration > 0 && buffered.length > 0 && buffered.end(buffered.length - 1) >= videoDuration) {
-          video2.controls = true;
-          console.log("video2 ok "+new Date().getTime());
-        }
-      })
-    });
-
-
-    video2.addEventListener('play', function (e) {
-      data.playflag = true
-      data.currentIndex = 1
-    })
-    video2.addEventListener('pause', function (e) {
-      clearTimeout(data.timer)
-      clearTimeout(data.timer_long)
-    })
-    video2.addEventListener('ended', function() {
-      clearTimeout(data.timer)
-      clearTimeout(data.timer_long)
-            exitFullScreen();
-        });
-    video2.addEventListener('timeupdate', function (e) {
-      var currentTime = video2.currentTime;
-      console.log(currentTime)
-      let delaytime = data.delay / 1000;
-      console.log(new Date().getTime())
-      console.log('time:' + currentTime);
-
-      let interval = 0.5;
-      let stren = 'heavy';
-      let allay = [];
-      allay.length = 0;
-
-      data.timePoint[1].forEach((element, index) => {
-
-        if (element[0] - currentTime + delaytime <= interval && element[0] - currentTime + delaytime > 0) {
-
-          console.log('timepoint:' + element[0]);
-          let longFlag = (element[0] > data.startlong - 0.01) && (element[0] < data.endlong + 0.01);
-          allay.push([(element[0] + delaytime - currentTime), element[1], 0]);
-
-
-        }/////
-      });
-      // if (data.currentIndex == 1) {
-      //   if (0.766 - currentTime + delaytime <= interval && 0.766 - currentTime + delaytime > 0) {
-      //     allay.push([(0.766 + delaytime - currentTime), 1, 1])
-      //   }
-
-      // }
-      if (allay.length > 0) {
-        clearTimeout(data.timer)
-        clearTimeout(data.timer_long)
-        vibrate(-1, allay)
-      }
-
-    })
-    function handleInput(){
-      const inputElement = document.getElementById('numberInput');
-      const outputElement = document.getElementById('output');  
-      // 获取用户输入的数字
-      const inputValue = inputElement.value;
-      data.delay=inputValue 
-    }
-
-
-
-    function showConsoleOutput() {
-    // 保存原始的console.log函数
-    var originalConsoleLog = console.log;
-
-    // 重定向console.log到页面上的元素
-    console.log = function(message) {
-        var consoleOutputContent = document.getElementById("consoleOutputContent");
-        consoleOutputContent.textContent += message + "\n";
-    };
-
-    // 显示console.log输出对话框
-    var consoleOutputDialog = document.getElementById("consoleOutputDialog");
-    consoleOutputDialog.style.display = "block";
-}
-
-function loadSource(elementId,mediaSrc){
-  /// 用于一次性加载音频和视频资源 防止不同步的产生
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+      var data = {
+        
+        oncoin: false,
+        onflag: false,
   
-  fetch(mediaSrc)
-  .then(response => response.blob())
-  .then(blob => {
-    const mediaSrc = URL.createObjectURL(blob);
-    const mediaElement = document.getElementById(elementId);
-    if (mediaElement){
-      mediaElement.src = mediaSrc;
-    }
-  })
-  .catch(error => {
-    console.error('Error in load media:',error);
-  })
+        touzidelay: -5,
+        timer: null,
+        delayflag: false,
+        call: [false, false, false, false],
+        isShow: [true, true],
+        fullScreenFlag: [false, false],
+        src_container: ['', ''],
+        //src: ['https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/huaxue.mp4?sign=d55ad5c0907b19be598984f9d7f1fde9&t=1689664669', 'https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/lihua.mp4?sign=63224e4585442a5b149043e547c4b5a0&t=1689746178'],
+        //music_src: ['https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/coin.wav?sign=aaea5b47d6c6f4a3f67140b676541e9f&t=1689664629', 'https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/flag.wav?sign=85b1f92a2b3f6f2e75de35c968334fcb&t=1689664641'],
+        //poster: ['cloud://touchdemo-0grtzfen1fa5e367.746f-touchdemo-0grtzfen1fa5e367-1317436880/snowpic.png', 'cloud://touchdemo-0grtzfen1fa5e367.746f-touchdemo-0grtzfen1fa5e367-1317436880/fireworkpic.png'],
+        balenciaga_screenrecording:"https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/balenciaga_screenrecording.mp4",
+        jsondata: ['source/321GO/321go.ah', 
+        'source/hit_gate/hit_gate.ah', 
+        'source/falling/falling.ah', 
+        'source/Screen recording/video1.ah'
+        ],
+        vider: '',
+        w: 0,
+        h: 0,
+        progress: [100, 100],
+        timePoint: [],
+        flag: [],
+        delay: 0,
+        videoPlayIcon: '../../images/playbutton.svg',
+        startlong: 26.265,
+        endlong: 28.775,
+        currentIndex: 0,
+        playflag: false,
 
-}
+        //new 
+        audioNum : 3,
+        audioIconList : ["images/321GO.png","images/hit_gate.png","images/falling.png"],
+        audioSrcList : ["https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/321GO.mp3",
+        "https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/hit_gate.mp3",
+        "https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/falling.mp3"],        
+        imgAltList :["321GO","hit_gate","falling"]
 
-function closeConsoleOutput() {
-    // 隐藏console.log输出对话框
-    var consoleOutputDialog = document.getElementById("consoleOutputDialog");
-    consoleOutputDialog.style.display = "none";
+      };
+      
 
-    // 恢复原始的console.log函数
-    console.log = originalConsoleLog;
-}
-
-
-    function vibrate(i, allay) {
-      var delay = -5
-      if (i == -1) { //当前是第一个震动
-        var step = parseFloat(delay) + parseFloat(allay[i + 1][0]) * 1000; //allay中的时间以秒为单位，step以ms为单位
-        if (step < 0) step = 1 //已经错过震动，等待1ms后处理下一个震动
+  
+      //let timelistdata = [];
+      //let timelist;
+      console.log("加载触觉文件")
+      //以get请求方式加载所有触觉json文件 ['ahap/video1.ahap', 'ahap/video2.ahap', 'ahap/coin.ahap', 'ahap/flag.ahap']
+      data.jsondata.forEach((element, index) => {
+      console.log("jsondata"+index.toString())
+      console.log(element)
+      
+      loadbin(element,index)
+      console.log("timelist")
+      //console.log(timelist)
+      //timelistdata[index] = timelist;
+      //data.timePoint = timelistdata
+      
+    });
+    //设置button样式
+    var audiopart = document.getElementById("audiopart");
+      for (var i = 0; i< data.audioNum ;i++){
+        //生成audioitem
+        var audioitem = createAudioItem(i);
+        // buttonId imgAlt audioId
+        audiopart.appendChild(audioitem);
       }
-      else {
-        var step = parseFloat(delay) + parseFloat(allay[i + 1][0] - allay[i][0]) * 1000;
-        if (step < 0) step = 1
-      }
-      if (allay[i + 1][1] > 1) {
-        console.log('wait' + step)
-        data.timer = setTimeout(() => {
-          clearTimeout(data.timer) 
-          navigator.vibrate(allay[i + 1][1]);
-          console.log(new Date().getTime())
-          console.log('长震动'+allay[i + 1][1])
-          if (i < allay.length - 2) vibrate(i + 1, allay)
-        }, step)
-      } else {
-        let stren = 'heavy'
-        if (allay[i + 1][1] < 0.3) stren = 'light';
-        else if (allay[i + 1][1] < 0.6) stren = 'medium';
-        else stren = 'heavy';
-        console.log('wait' + step)
-        data.timer = setTimeout(() => {
+      
+      //以fetch方式请求所有视频和音频资源
+      //视频 (.mp4)
+      //loadSource('video1',data.balenciaga_screenrecording);
+      
+  
+      console.log("load source success" + new Date().getTime());
+      //为音频按钮添加样式设置
+      //当加载完成后，设置img为正式icon
+    
+
+      /*
+      var imageElement1 = document.getElementById('coin');
+      
+  
+      // 添加点击事件处理程序
+      imageElement1.addEventListener('click', function () {
+        // 在这里编写点击事件的处理逻辑
+        var audioElement = document.getElementById('coinaudio');
+  
+        audioElement.addEventListener('play', function () { //为play函数添加监听器
+          setTimeout(()=>{vibrate(-1, data.timePoint[2])},data.delay) //delay控制点击之后多久开始震动
+        });
+        audioElement.addEventListener('playing',function(){
+          console.log("playing "+ new Date().getTime());
+        })
+  
+  
+        console.log('ready to play'+new Date().getTime());
+        audioElement.play();
+      });
+  
+  
+  
+      var imageElement2 = document.getElementById('flag');
+  
+      // 添加点击事件处理程序
+      imageElement2.addEventListener('click', function () {
+        // 在这里编写点击事件的处理逻辑
+        var audioElement = document.getElementById('flagaudio');
+  
+        audioElement.addEventListener('play', function () {
+          setTimeout(()=>{vibrate(-1, data.timePoint[3])},data.delay)
+        }); audioElement.play();
+      });
+      */
+      var video1 = document.getElementById('video1')
+  
+  
+  
+      video1.addEventListener('progress', function() {
+        var buffered = video1.buffered;
+        var videoDuration = video1.duration;
+        
+        video1.addEventListener("canplaythrough",function(){
+          if (videoDuration > 0 && buffered.length > 0 && buffered.end(buffered.length - 1) >= videoDuration) {
+            video1.controls = true;
+            console.log("video1 ok "+new Date().getTime());
+          }
+        })
+      });
+  
+  
+      video1.addEventListener('play', function (e) {
+        data.playflag = true
+        data.currentIndex = 0
+      })
+      video1.addEventListener('pause', function (e) {
+        clearTimeout(data.timer)
+        clearTimeout(data.timer_long)
+      })
+      video1.addEventListener('ended', function() {
+        clearTimeout(data.timer)
+        clearTimeout(data.timer_long)
+              exitFullScreen();
+          });
+      video1.addEventListener('timeupdate', function (e) {
+        var currentTime = video1.currentTime;
+        console.log(currentTime)
+        let delaytime = data.delay / 1000;
+        console.log(new Date().getTime())
+        console.log('time:' + currentTime);
+  
+        let interval = 0.5;
+        let stren = 'heavy';
+        let allay = [];
+        allay.length = 0;
+  
+        data.timePoint[0].forEach((element, index) => {
+  
+          if (element[0] - currentTime + delaytime <= interval && element[0] - currentTime + delaytime > 0) {
+  
+            console.log('timepoint:' + element[0]);
+            let longFlag = (element[0] > data.startlong - 0.01) && (element[0] < data.endlong + 0.01);
+            allay.push([(element[0] + delaytime - currentTime), element[1], 0]);
+  
+          }/////
+        });
+        // if (data.currentIndex == 1) {
+        //   if (0.766 - currentTime + delaytime <= interval && 0.766 - currentTime + delaytime > 0) {
+        //     allay.push([(0.766 + delaytime - currentTime), 1, 1])
+        //   }
+  
+        // }
+        if (allay.length > 0) {
+          console.log("准备震动，allay:"+allay);
           clearTimeout(data.timer)
-          navigator.vibrate(15);
-          console.log(new Date().getTime())
-          if (i < allay.length - 2) vibrate(i + 1, allay)
-        }, step)
-      }
-    }
-    function exitFullScreen() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            }
+          clearTimeout(data.timer_long)
+          vibrate(-1, allay) 
         }
+  
+      })
+      /*
+      var video2 = document.getElementById('video2');
+  
+      video2.addEventListener('progress', function() {
+        var buffered = video2.buffered;
+        var videoDuration = video2.duration;
+        
+        video2.addEventListener("canplaythrough",function(){
+          if (videoDuration > 0 && buffered.length > 0 && buffered.end(buffered.length - 1) >= videoDuration) {
+            video2.controls = true;
+            console.log("video2 ok "+new Date().getTime());
+          }
+        })
+      });
+  
+  
+      video2.addEventListener('play', function (e) {
+        data.playflag = true
+        data.currentIndex = 1
+      })
+      video2.addEventListener('pause', function (e) {
+        clearTimeout(data.timer)
+        clearTimeout(data.timer_long)
+      })
+      video2.addEventListener('ended', function() {
+        clearTimeout(data.timer)
+        clearTimeout(data.timer_long)
+              exitFullScreen();
+          });
+      video2.addEventListener('timeupdate', function (e) {
+        var currentTime = video2.currentTime;
+        console.log(currentTime)
+        let delaytime = data.delay / 1000;
+        console.log(new Date().getTime())
+        console.log('time:' + currentTime);
+  
+        let interval = 0.5;
+        let stren = 'heavy';
+        let allay = [];
+        allay.length = 0;
+  
+        data.timePoint[1].forEach((element, index) => {
+  
+          if (element[0] - currentTime + delaytime <= interval && element[0] - currentTime + delaytime > 0) {
+  
+            console.log('timepoint:' + element[0]);
+            let longFlag = (element[0] > data.startlong - 0.01) && (element[0] < data.endlong + 0.01);
+            allay.push([(element[0] + delaytime - currentTime), element[1], 0]);
+  
+  
+          }/////
+        });
+        // if (data.currentIndex == 1) {
+        //   if (0.766 - currentTime + delaytime <= interval && 0.766 - currentTime + delaytime > 0) {
+        //     allay.push([(0.766 + delaytime - currentTime), 1, 1])
+        //   }
+  
+        // }
+        if (allay.length > 0) {
+          clearTimeout(data.timer)
+          clearTimeout(data.timer_long)
+          vibrate(-1, allay)
+        }
+  
+      })*/
+      
+      
+      function handleInput(){
+        const inputElement = document.getElementById('numberInput');
+        const outputElement = document.getElementById('output');  
+        // 获取用户输入的数字
+        const inputValue = inputElement.value;
+        data.delay=inputValue 
+      }
+  
+  
+  
+      function showConsoleOutput() {
+      // 保存原始的console.log函数
+      var originalConsoleLog = console.log;
+  
+      // 重定向console.log到页面上的元素
+      console.log = function(message) {
+          var consoleOutputContent = document.getElementById("consoleOutputContent");
+          consoleOutputContent.textContent += message + "\n";
+      };
+  
+      // 显示console.log输出对话框
+      var consoleOutputDialog = document.getElementById("consoleOutputDialog");
+      consoleOutputDialog.style.display = "block";
+  }
+  
+  function createAudioItem(i){
+    console.log("create begin"+i.toString());
+    console.log((i+1).toString())
+    var audioItem = document.createElement("div");
+    audioItem.className = "audioitem";
 
-  </script>
+    var button = createButton(i);
+    //添加button点击事件
+    console.log("button==null?"+(button.id))
+    var span = createSpan(data.imgAltList[i]);
+    
+    audioItem.appendChild(button);
+    audioItem.appendChild(span);  
+
+    
+    console.log("create audio item ok");
+    return audioItem;
+  }
+  function createButton(i){
+    var button = document.createElement("button");
+    button.id = "button"+(i+1).toString();
+    button.className = "audiobutton";
+
+    //生成img
+    var img = document.createElement("img");
+    img.id = "icon"+(i+1).toString();
+    img.src = "images/loading.gif" 
+    img.alt = data.imgAltList[i];
+    img.className = "icon";
+
+    //生成audio
+    var audio = document.createElement("audio");
+    audio.id = "audio"+(i+1).toString();
+    audio.preload = "auto";
+    var x = document.getElementById("audio"+(i+1).toString());
+    console.log("create button : audio==null?"+(audio==null))
+
+    //添加加载事件
+    console.log("audio:"+(audio==null))
+    loadSource('audio'+(i+1).toString(),data.audioSrcList[i]);
+
+    audio.addEventListener('play', function () { //为play函数添加监听器
+      console.log("添加定时器,准备震动");
+      console.log(data.timePoint);
+      setTimeout(()=>{vibrate(-1, data.timePoint[2])},data.delay) //delay控制点击之后多久开始震动
+    });
+    audio.addEventListener('playing',function(){
+      console.log("playing "+ new Date().getTime());
+    })
+    audio.addEventListener('progress', function() {
+      var buffered = audio.buffered;
+      var duration = audio.duration;
+      
+      audio.addEventListener("canplaythrough",function(){
+        if (duration > 0 && buffered.length > 0 && buffered.end(buffered.length - 1) >= duration) {
+          //替换图片src
+          console.log("图片加载完毕 替换")
+          var img = document.getElementById("icon"+(i+1).toString());
+          img.src = data.audioIconList[i];
+        }
+      })
+    });
+    //添加点击事件
+    button.onclick = function () {
+        //播放视频
+        audio.play();
+    }
+
+    button.appendChild(img);
+    button.appendChild(audio);
+
+    console.log("create button ok");
+    return button;
+  }
+  function createSpan(spanText){
+    var span = document.createElement("span");
+    span.style = "margin-top:7px";
+    span.textContent = spanText;
+
+    console.log("create span ok");
+    return span;
+  }
+
+  function loadSource(elementId,mediaSrc){
+    /// 用于一次性加载音频和视频资源 防止不同步的产生
+    
+    fetch(mediaSrc)
+    .then(response => response.blob())
+    .then(blob => {
+      const mediaSrc = URL.createObjectURL(blob);
+      const mediaElement = document.getElementById(elementId);
+      if (mediaElement){
+        mediaElement.src = mediaSrc;
+      }
+    })
+    .catch(error => {
+      console.error('Error in load media:',error);
+    })
+  
+  }
+  
+  function closeConsoleOutput() {
+      // 隐藏console.log输出对话框
+      var consoleOutputDialog = document.getElementById("consoleOutputDialog");
+      consoleOutputDialog.style.display = "none";
+  
+      // 恢复原始的console.log函数
+      console.log = originalConsoleLog;
+  }
+  
+  
+      function vibrate(i, allay) {
+        var delay = -5
+        if (i == -1) { //当前是第一个震动
+          var step = parseFloat(delay) + parseFloat(allay[i + 1][0]) * 1000; //allay中的时间以秒为单位，step以ms为单位
+          if (step < 0) step = 1 //已经错过震动，等待1ms后处理下一个震动
+        }
+        else {
+          var step = parseFloat(delay) + parseFloat(allay[i + 1][0] - allay[i][0]) * 1000;
+          if (step < 0) step = 1
+        }
+        if (allay[i + 1][1] > 1) {
+          console.log('wait' + step)
+          data.timer = setTimeout(() => {
+            clearTimeout(data.timer) 
+            navigator.vibrate(allay[i + 1][1]);
+            console.log(new Date().getTime())
+            console.log('长震动'+allay[i + 1][1])
+            if (i < allay.length - 2) vibrate(i + 1, allay)
+          }, step)
+        } else {
+          let stren = 'heavy'
+          if (allay[i + 1][1] < 0.3) stren = 'light';
+          else if (allay[i + 1][1] < 0.6) stren = 'medium';
+          else stren = 'heavy';
+          console.log('wait' + step)
+          data.timer = setTimeout(() => {
+            clearTimeout(data.timer)
+            navigator.vibrate(15);
+            console.log(new Date().getTime())
+            if (i < allay.length - 2) vibrate(i + 1, allay)
+          }, step)
+        }
+      }
+      function exitFullScreen() {
+              if (document.exitFullscreen) {
+                  document.exitFullscreen();
+              } else if (document.mozCancelFullScreen) {
+                  document.mozCancelFullScreen();
+              } else if (document.webkitExitFullscreen) {
+                  document.webkitExitFullscreen();
+              }
+          }
+      function loadbin(path,index) {
+        fetch(path)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`读取文件时出错: ${response.status}`);
+          }
+          return response.arrayBuffer();
+        })
+        .then(arrayBuffer => {
+          // 在这里进行文件解析，假设是自定义的二进制格式
+          const lengthDataView = new DataView(arrayBuffer);
+          let transientTime;
+          let transientIntensity;
+
+          // 解析数据...
+          const lengthIntArray = [
+            lengthDataView.getInt32(0, true),
+            lengthDataView.getInt32(Int32Array.BYTES_PER_ELEMENT, true),
+            lengthDataView.getInt32(Int32Array.BYTES_PER_ELEMENT * 2, true)
+          ];
+          console.log(lengthIntArray)
+          const readOrderArray = [
+            lengthIntArray[0], lengthIntArray[0],
+            lengthIntArray[1], lengthIntArray[1],
+            lengthIntArray[2], lengthIntArray[2], lengthIntArray[2]]
+
+
+          // 读取intensity、sharpness、transient数组
+          let offset = Int32Array.BYTES_PER_ELEMENT * 3;
+          for (let i = 0; i < readOrderArray.length; i++) {
+            const array = new Float32Array(arrayBuffer, offset, readOrderArray[i]);
+            offset += readOrderArray[i] * Float32Array.BYTES_PER_ELEMENT;
+            switch (i) {
+              case 0:
+                break;
+              case 1:
+                break;
+              case 2:
+                break;
+              case 3:
+                break;
+              case 4:
+                transientTime = array;
+                break;
+              case 5:
+                transientIntensity = array;
+                break;
+              case 6:
+                break;
+            }
+          }
+          var timelist = [];
+          transientTime.forEach((element, index) => {
+            timelist.push([element, transientIntensity[index]]);
+          });
+          console.log("timelist")
+          console.log(timelist)
+          
+          data.timePoint[index] = timelist
+          return timelist
+        })
+        .catch(error => {
+          console.error(`读取文件时出错: ${error}`);
+        });
+      }
+
+    </script>
+
 </body>
 
 </html>
