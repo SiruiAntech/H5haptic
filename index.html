@@ -77,10 +77,10 @@
         background-color: #D8D8D8;
         /*border-color: #B9B4C7;*/
         border-radius: 10px;
-        margin-left: 40px;
-        margin-right: 40px;
-        width: 100px;
-        height: 108px;
+        margin: 0 2.5vw;
+        
+        width: 10vw;
+        height: 10vw;
     }
     .audiobutton:active{
         background-color: #F3F3F3;
@@ -433,20 +433,21 @@
     //生成img
     var img = document.createElement("img");
     img.id = "icon"+(i+1).toString();
-    img.src = "images/loading.gif" 
+    img.src = data.audioIconList[i];
     img.alt = data.imgAltList[i];
     img.className = "icon";
 
     //生成audio
     var audio = document.createElement("audio");
     audio.id = "audio"+(i+1).toString();
+    audio.src=data.audioSrcList[i];
     audio.preload = "auto";
     var x = document.getElementById("audio"+(i+1).toString());
     console.log("create button : audio==null?"+(audio==null))
 
     //添加加载事件
     console.log("audio:"+(audio==null))
-    loadSource('audio'+(i+1).toString(),data.audioSrcList[i]);
+    //loadSource('audio'+(i+1).toString(),data.audioSrcList[i]);
 
     audio.addEventListener('play', function () { //为play函数添加监听器
       console.log("添加定时器,准备震动");
@@ -456,6 +457,7 @@
     audio.addEventListener('playing',function(){
       console.log("playing "+ new Date().getTime());
     })
+    /*
     audio.addEventListener('progress', function() {
       var buffered = audio.buffered;
       var duration = audio.duration;
@@ -468,7 +470,7 @@
           img.src = data.audioIconList[i];
         }
       })
-    });
+    });*/
     //添加点击事件
     button.onclick = function () {
         //播放视频
