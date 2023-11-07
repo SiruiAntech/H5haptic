@@ -151,10 +151,11 @@
         //music_src: ['https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/coin.wav?sign=aaea5b47d6c6f4a3f67140b676541e9f&t=1689664629', 'https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/flag.wav?sign=85b1f92a2b3f6f2e75de35c968334fcb&t=1689664641'],
         //poster: ['cloud://touchdemo-0grtzfen1fa5e367.746f-touchdemo-0grtzfen1fa5e367-1317436880/snowpic.png', 'cloud://touchdemo-0grtzfen1fa5e367.746f-touchdemo-0grtzfen1fa5e367-1317436880/fireworkpic.png'],
         balenciaga_screenrecording:"https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/balenciaga_screenrecording.mp4",
-        jsondata: ['source/321GO/321go.ah', 
+        jsondata: ['source/Screen_recording/video1.ah',
+          'source/321GO/321GO.ah', 
         'source/hit_gate/hit_gate.ah', 
         'source/falling/falling.ah', 
-        'source/Screen recording/video1.ah'
+        
         ],
         vider: '',
         w: 0,
@@ -183,15 +184,15 @@
   
       //let timelistdata = [];
       //let timelist;
-      console.log("加载触觉文件")
+      ///console.log("加载触觉文件")
       //以get请求方式加载所有触觉json文件 ['ahap/video1.ahap', 'ahap/video2.ahap', 'ahap/coin.ahap', 'ahap/flag.ahap']
       data.jsondata.forEach((element, index) => {
-      console.log("jsondata"+index.toString())
-      console.log(element)
+      ///console.log("jsondata"+index.toString())
+      ///console.log(element)
       
       loadbin(element,index)
-      console.log("timelist")
-      //console.log(timelist)
+      ///console.log("timelist")
+      /////console.log(timelist)
       //timelistdata[index] = timelist;
       //data.timePoint = timelistdata
       
@@ -210,7 +211,7 @@
       //loadSource('video1',data.balenciaga_screenrecording);
       
   
-      console.log("load source success" + new Date().getTime());
+      ///console.log("load source success" + new Date().getTime());
       //为音频按钮添加样式设置
       //当加载完成后，设置img为正式icon
     
@@ -228,11 +229,11 @@
           setTimeout(()=>{vibrate(-1, data.timePoint[2])},data.delay) //delay控制点击之后多久开始震动
         });
         audioElement.addEventListener('playing',function(){
-          console.log("playing "+ new Date().getTime());
+          ///console.log("playing "+ new Date().getTime());
         })
   
   
-        console.log('ready to play'+new Date().getTime());
+        ///console.log('ready to play'+new Date().getTime());
         audioElement.play();
       });
   
@@ -261,7 +262,7 @@
         video1.addEventListener("canplaythrough",function(){
           if (videoDuration > 0 && buffered.length > 0 && buffered.end(buffered.length - 1) >= videoDuration) {
             video1.controls = true;
-            console.log("video1 ok "+new Date().getTime());
+            ///console.log("video1 ok "+new Date().getTime());
           }
         })
       });
@@ -282,10 +283,10 @@
           });
       video1.addEventListener('timeupdate', function (e) {
         var currentTime = video1.currentTime;
-        console.log(currentTime)
+        ///console.log(currentTime)
         let delaytime = data.delay / 1000;
-        console.log(new Date().getTime())
-        console.log('time:' + currentTime);
+        ///console.log(new Date().getTime())
+        ///console.log('time:' + currentTime);
   
         let interval = 0.5;
         let stren = 'heavy';
@@ -296,7 +297,7 @@
   
           if (element[0] - currentTime + delaytime <= interval && element[0] - currentTime + delaytime > 0) {
   
-            console.log('timepoint:' + element[0]);
+            ///console.log('timepoint:' + element[0]);
             let longFlag = (element[0] > data.startlong - 0.01) && (element[0] < data.endlong + 0.01);
             allay.push([(element[0] + delaytime - currentTime), element[1], 0]);
   
@@ -309,7 +310,7 @@
   
         // }
         if (allay.length > 0) {
-          console.log("准备震动，allay:"+allay);
+          ///console.log("准备震动，allay:"+allay);
           clearTimeout(data.timer)
           clearTimeout(data.timer_long)
           vibrate(-1, allay) 
@@ -326,7 +327,7 @@
         video2.addEventListener("canplaythrough",function(){
           if (videoDuration > 0 && buffered.length > 0 && buffered.end(buffered.length - 1) >= videoDuration) {
             video2.controls = true;
-            console.log("video2 ok "+new Date().getTime());
+            ///console.log("video2 ok "+new Date().getTime());
           }
         })
       });
@@ -347,10 +348,10 @@
           });
       video2.addEventListener('timeupdate', function (e) {
         var currentTime = video2.currentTime;
-        console.log(currentTime)
+        ///console.log(currentTime)
         let delaytime = data.delay / 1000;
-        console.log(new Date().getTime())
-        console.log('time:' + currentTime);
+        ///console.log(new Date().getTime())
+        ///console.log('time:' + currentTime);
   
         let interval = 0.5;
         let stren = 'heavy';
@@ -361,7 +362,7 @@
   
           if (element[0] - currentTime + delaytime <= interval && element[0] - currentTime + delaytime > 0) {
   
-            console.log('timepoint:' + element[0]);
+            ///console.log('timepoint:' + element[0]);
             let longFlag = (element[0] > data.startlong - 0.01) && (element[0] < data.endlong + 0.01);
             allay.push([(element[0] + delaytime - currentTime), element[1], 0]);
   
@@ -394,10 +395,10 @@
   
   
       function showConsoleOutput() {
-      // 保存原始的console.log函数
-      var originalConsoleLog = console.log;
+      // 保存原始的///console.log函数
+      var originalConsoleLog = ///console.log;
   
-      // 重定向console.log到页面上的元素
+      // 重定向///console.log到页面上的元素
       console.log = function(message) {
           var consoleOutputContent = document.getElementById("consoleOutputContent");
           consoleOutputContent.textContent += message + "\n";
@@ -409,21 +410,21 @@
   }
   
   function createAudioItem(i){
-    console.log("create begin"+i.toString());
-    console.log((i+1).toString())
+    ///console.log("create begin"+i.toString());
+    ///console.log((i+1).toString())
     var audioItem = document.createElement("div");
     audioItem.className = "audioitem";
 
     var button = createButton(i);
     //添加button点击事件
-    console.log("button==null?"+(button.id))
+    ///console.log("button==null?"+(button.id))
     var span = createSpan(data.imgAltList[i]);
     
     audioItem.appendChild(button);
     audioItem.appendChild(span);  
 
     
-    console.log("create audio item ok");
+    ///console.log("create audio item ok");
     return audioItem;
   }
   function createButton(i){
@@ -444,19 +445,19 @@
     audio.src=data.audioSrcList[i];
     audio.preload = "auto";
     var x = document.getElementById("audio"+(i+1).toString());
-    console.log("create button : audio==null?"+(audio==null))
+    ///console.log("create button : audio==null?"+(audio==null))
 
     //添加加载事件
-    console.log("audio:"+(audio==null))
+    ///console.log("audio:"+(audio==null))
     //loadSource('audio'+(i+1).toString(),data.audioSrcList[i]);
 
     audio.addEventListener('play', function () { //为play函数添加监听器
-      console.log("添加定时器,准备震动");
-      console.log(data.timePoint);
-      setTimeout(()=>{vibrate(-1, data.timePoint[2])},data.delay) //delay控制点击之后多久开始震动
+      ///console.log("添加定时器,准备震动");
+      ///console.log(data.timePoint);
+      setTimeout(()=>{vibrate(-1, data.timePoint[i+1])},data.delay) //delay控制点击之后多久开始震动
     });
     audio.addEventListener('playing',function(){
-      console.log("playing "+ new Date().getTime());
+      ///console.log("playing "+ new Date().getTime());
     })
     /*
     audio.addEventListener('progress', function() {
@@ -466,7 +467,7 @@
       audio.addEventListener("canplaythrough",function(){
         if (duration > 0 && buffered.length > 0 && buffered.end(buffered.length - 1) >= duration) {
           //替换图片src
-          console.log("图片加载完毕 替换")
+          ///console.log("图片加载完毕 替换")
           var img = document.getElementById("icon"+(i+1).toString());
           img.src = data.audioIconList[i];
         }
@@ -481,7 +482,7 @@
     button.appendChild(img);
     button.appendChild(audio);
 
-    console.log("create button ok");
+    ///console.log("create button ok");
     return button;
   }
   function createSpan(spanText){
@@ -489,7 +490,7 @@
     span.style = "margin-top:7px";
     span.textContent = spanText;
 
-    console.log("create span ok");
+    ///console.log("create span ok");
     return span;
   }
 
@@ -512,12 +513,12 @@
   }
   
   function closeConsoleOutput() {
-      // 隐藏console.log输出对话框
+      // 隐藏///console.log输出对话框
       var consoleOutputDialog = document.getElementById("consoleOutputDialog");
       consoleOutputDialog.style.display = "none";
   
-      // 恢复原始的console.log函数
-      console.log = originalConsoleLog;
+      // 恢复原始的///console.log函数
+      ///console.log = originalConsoleLog;
   }
   
   
@@ -532,12 +533,12 @@
           if (step < 0) step = 1
         }
         if (allay[i + 1][1] > 1) {
-          console.log('wait' + step)
+          ///console.log('wait' + step)
           data.timer = setTimeout(() => {
             clearTimeout(data.timer) 
             navigator.vibrate(allay[i + 1][1]);
-            console.log(new Date().getTime())
-            console.log('长震动'+allay[i + 1][1])
+            ///console.log(new Date().getTime())
+            ///console.log('长震动'+allay[i + 1][1])
             if (i < allay.length - 2) vibrate(i + 1, allay)
           }, step)
         } else {
@@ -545,11 +546,11 @@
           if (allay[i + 1][1] < 0.3) stren = 'light';
           else if (allay[i + 1][1] < 0.6) stren = 'medium';
           else stren = 'heavy';
-          console.log('wait' + step)
+          ///console.log('wait' + step)
           data.timer = setTimeout(() => {
             clearTimeout(data.timer)
             navigator.vibrate(15);
-            console.log(new Date().getTime())
+            ///console.log(new Date().getTime())
             if (i < allay.length - 2) vibrate(i + 1, allay)
           }, step)
         }
@@ -583,7 +584,7 @@
             lengthDataView.getInt32(Int32Array.BYTES_PER_ELEMENT, true),
             lengthDataView.getInt32(Int32Array.BYTES_PER_ELEMENT * 2, true)
           ];
-          console.log(lengthIntArray)
+          ///console.log(lengthIntArray)
           const readOrderArray = [
             lengthIntArray[0], lengthIntArray[0],
             lengthIntArray[1], lengthIntArray[1],
@@ -618,8 +619,8 @@
           transientTime.forEach((element, index) => {
             timelist.push([element, transientIntensity[index]]);
           });
-          console.log("timelist")
-          console.log(timelist)
+          ///console.log("timelist")
+          ///console.log(timelist)
           
           data.timePoint[index] = timelist
           return timelist
