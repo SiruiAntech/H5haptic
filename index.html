@@ -22,15 +22,15 @@
       justify-content: center;
     }
     .videopart {
-        height: 70%;
+        height: 60%;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
     .audiopart{
-        height: 30%;
-        width: 100%;
+        height: 15%;
+        width: 60%;
 
         display: flex;
         flex-direction: row;
@@ -53,6 +53,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    
     }
     .littlerex {
       border-radius: 10px;
@@ -78,11 +79,12 @@
         /*border-color: #B9B4C7;*/
         border-radius: 10px;
         border: none;
-        margin: 0 2.5vw;
+        margin: 0 5vw;
         
         width: 80px;
         height: 80px;
     }
+    
     .audiobutton:active{
         background-color: #F3F3F3;
     }
@@ -109,31 +111,10 @@
 
         <!--audio--->
         <div class="audiopart" id="audiopart">
-            <!----
-            <div class="audioitem">
-                <button class="audiobutton" id="321GO">
-                    <img src="images/321GO.png" alt="321GO" class="icon">
-                    <audio id="321GOaudio"  preload="auto" ></audio>
-                </button>
-                <span style="margin-top: 7px;">321GO</span>
-            </div>
             
-            <div  class="audioitem">
-                <button class="audiobutton" id="321GO">
-                    <img src="images/loading.gif" alt="321GO" class="icon">
-                    <audio id="321GOaudio"  preload="auto" ></audio>
-                </button>
-                <span style="margin-top: 7px;">321GO</span>
-            </div>
-            
-            <div class="audioitem">
-                <button class="audiobutton" id="321GO">
-                    <img src="images/321GO.png" alt="321GO" class="icon">
-                    <audio id="321GOaudio"  preload="auto" ></audio>
-                </button>
-                <span style="margin-top: 7px;">321GO</span>
-            </div> 
-            ---->
+        </div>
+        <div class="audiopart" id="audiopart2">
+
         </div>
         
         <!--321GO  Hit_gate Falling-->
@@ -212,11 +193,17 @@
     });
     //设置button样式
     var audiopart = document.getElementById("audiopart");
-      for (var i = 0; i< data.audioNum ;i++){
+      for (var i = 0; i< data.audioNum/2 ;i++){
         //生成audioitem
         var audioitem = createAudioItem(i);
         // buttonId imgAlt audioId
         audiopart.appendChild(audioitem);
+      }
+      var audiopart2 = document.getElementById("audiopart2");
+      for (var i=data.audioNum/2;i<data.audioNum;i++){
+        var audioitem = createAudioItem(i);
+        // buttonId imgAlt audioId
+        audiopart2.appendChild(audioitem);
       }
       
       //以fetch方式请求所有视频和音频资源
