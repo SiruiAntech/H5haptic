@@ -93,14 +93,7 @@
 <body >
     <div class="container">
         <!---debug-->
-          <label style="margin-top: 100px;" for="numberInput">请输入延迟：</label>
-        <input type="number" id="numberInput" value="0" oninput="handleInput()">
-        <button style="margin-top: 10px;" onclick="showConsoleOutput()">显示console.log输出</button>
-          <div id="consoleOutputDialog" style="display: none;">
-              <h2>console.log输出：</h2>
-              <pre id="consoleOutputContent"></pre>
-              <button onclick="closeConsoleOutput()">关闭</button>
-          </div>
+        
         <!---video-->
         <div  class="videopart" >
             <video class="videoitem" id="video1" src="https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/balenciaga_screenrecording.mp4" preload="auto" controls></video>
@@ -160,12 +153,7 @@
         //music_src: ['https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/coin.wav?sign=aaea5b47d6c6f4a3f67140b676541e9f&t=1689664629', 'https://746f-touchdemo-0grtzfen1fa5e367-1317436880.tcb.qcloud.la/flag.wav?sign=85b1f92a2b3f6f2e75de35c968334fcb&t=1689664641'],
         //poster: ['cloud://touchdemo-0grtzfen1fa5e367.746f-touchdemo-0grtzfen1fa5e367-1317436880/snowpic.png', 'cloud://touchdemo-0grtzfen1fa5e367.746f-touchdemo-0grtzfen1fa5e367-1317436880/fireworkpic.png'],
         balenciaga_screenrecording:"https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/balenciaga_screenrecording.mp4",
-        jsondata: ['source/Screen_recording/video1.ah',
-          'source/321GO/321GO.ah', 
-        'source/hit_gate/hit_gate.ah', 
-        'source/falling/falling.ah', 
         
-        ],
         vider: '',
         w: 0,
         h: 0,
@@ -180,12 +168,21 @@
         playflag: false,
 
         //new 
-        audioNum : 3,
-        audioIconList : ["images/321GO.png","images/hit_gate.png","images/falling.png"],
+        audioNum : 4,
+        audioIconList : ["images/321GO.png","images/click.png","images/hit_gate.png","images/falling.png"],
         audioSrcList : ["https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/321GO.mp3",
+        "https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/click.mp3",
         "https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/hit_gate.mp3",
-        "https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/falling.mp3"],        
-        imgAltList :["321GO","hit_gate","falling"]
+        "https://haptic-video-shanghai.oss-cn-shanghai.aliyuncs.com/static/falling.mp3",
+      ],        
+        imgAltList :["321GO","click","hit_gate","falling",],
+        jsondata: ['source/Screen_recording/video1.ah',
+          'source/321GO/321GO.ah', 
+          'source/click/click.ah',
+        'source/hit_gate/hit_gate.ah', 
+        'source/falling/falling.ah', 
+        
+        ]
 
       };
       
@@ -463,7 +460,7 @@
     audio.addEventListener('play', function () { //为play函数添加监听器
       ///console.log("添加定时器,准备震动");
       ///console.log(data.timePoint);
-      setTimeout(()=>{vibrate(-1, data.timePoint[i+1])},data.delay) //delay控制点击之后多久开始震动
+      setTimeout(()=>{vibrate(-1, data.timePoint[i+1])},40) //data.delay设定为40ms
     });
     audio.addEventListener('playing',function(){
       ///console.log("playing "+ new Date().getTime());
