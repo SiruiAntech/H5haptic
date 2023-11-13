@@ -13,7 +13,9 @@ var data = {
   endlong: 28.775,
 
   debug:true,
-  playHandler:[]
+  playHandler:[],
+  can_vibrate:true,
+  platform:"",//设备名称
 };
 
 let element = [];
@@ -44,9 +46,14 @@ jsondata.forEach((element, index) => {
    应该新设置一个预先加载的操作
  */
 //openVibrate()
-audio_ = data.audio[0]
-
-
+//设备
+console.log(platform);
+console.log(platform.name);
+console.log(platform.version);
+let contentElement = document.getElementById("content");
+// 初始化元素的文本内容
+data.platform = platform.name;
+contentElement.textContent = platform.name;
 
 function openAudio(){
   console.log('open audio')
@@ -56,10 +63,8 @@ function openAudio(){
   }
 }
 function openVibrate(){
-  //添加监听器
-  for(var i=0;i<4;i++){
-    data.audio[i].addEventListener('play', data.playHandler[i]);
-  }
+  
+  this.data.can_vibrate = true;
 }
 function closeAudio(){
   console.log('close audio')
@@ -68,13 +73,15 @@ function closeAudio(){
   }
 }
 function closeVibrate(){
-  //移除监听器
-  for(var i=0;i<4;i++){
-    data.audio[i].removeEventListener('play', data.playHandler[i]);
-  }
+  
+  this.data.can_vibrate = false;
 }
 
 function vibrate(i, allay) {
+  if (!this.data.can_vibrate) {
+    clearTimeout(data.timer);
+    return;
+  }
   var delay = -5
   if (i == -1) { //当前是第一个震动
     var step = parseFloat(delay) + parseFloat(allay[i + 1][0]) * 1000; //allay中的时间以秒为单位，step以ms为单位
@@ -86,12 +93,28 @@ function vibrate(i, allay) {
   }
   if (allay[i + 1][1] > 1) {
     if (this.data.debug) console.log('wait' + step) ///
-    data.timer = setTimeout(() => {
-      clearTimeout(data.timer) 
-      navigator.vibrate(allay[i + 1][1]);
-      if(this.data.debug) console.log(new Date().getTime() + ' 长震动'+allay[i + 1][1]) ///
-      if (i < allay.length - 2) vibrate(i + 1, allay)
-    }, step)
+    //获得手机型号
+    if (this.data.platform == 'V2183A'){
+      //改为密集点振动
+      let currentTime = 0; // 当前已经过去的时间
+      if (this.data.debug) console.log("[密集,time,index] "+ new Date().getTime()+" "+index)
+      var intervalHandle = setInterval(() => {
+        currentTime += 3; //interval为3ms
+
+        if (currentTime >= allay[i + 1][1]) {
+          clearInterval(intervalHandle);
+          intervalHandle = null;
+        }
+      }, 3);
+
+    }else {
+      data.timer = setTimeout(() => {
+        clearTimeout(data.timer) 
+        navigator.vibrate(allay[i + 1][1]);
+        if(this.data.debug) console.log(new Date().getTime() + ' 长震动'+allay[i + 1][1]) ///
+        if (i < allay.length - 2) vibrate(i + 1, allay)
+      }, step)
+    }
   } else {
     let stren = 'heavy'
     if (allay[i + 1][1] < 0.3) stren = 'light';
@@ -167,7 +190,9 @@ function loadbin(path,index) {
       }
     }
     var timelist = [];
+   
     transientTime.forEach((element, index) => {
+      console.log([element,transientIntensity[index]])
       timelist.push([element, transientIntensity[index]]);
     });
     ///console.log("timelist")
