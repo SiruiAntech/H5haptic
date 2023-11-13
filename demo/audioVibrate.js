@@ -14,23 +14,33 @@ var data = {
 
   debug:true,
   vibrate_access:true,
+  playHandler:[]
 };
 
 let element = [];
 element.length = 0;
+let handler = [];
+handler.length = 0;
 let audioSrcList = [data.audio_321GO,data.audio_click,data.audio_hitgate,data.audio_falling]
 for (var i=0;i<4;i++){
   var audio_ =  document.createElement("audio");
   audio_.src = audioSrcList[i];
   audio_.preload = "auto";
-  element[i] = audio_
+  element[i] = audio_;
+  handler[i] = createPlayHandler(i);
 }
 data.audio = element;
+data.playHandler = handler;
 
 let jsondata = ['data/321GO.ah', 'data/click.ah','data/hit_gate.ah', 'data/falling.ah']
 jsondata.forEach((element, index) => {
   loadbin(element,index)
 });
+
+
+openVibrate()
+
+
 function openAudio(){
   console.log('open audio')
   for (var i=0;i<4;i++){
@@ -38,8 +48,10 @@ function openAudio(){
   }
 }
 function openVibrate(){
-  console.log('open vibrate')
-  this.data.vibrate_access = true
+  //添加监听器
+  for(var i=0;i<4;i++){
+    data.audio[i].addEventListener('play', data.playHandler[i]);
+  }
 }
 function closeAudio(){
   console.log('close audio')
@@ -48,8 +60,10 @@ function closeAudio(){
   }
 }
 function closeVibrate(){
-  console.log('close vibrate')
-  this.data.vibrate_access = false
+  //移除监听器
+  for(var i=0;i<4;i++){
+    data.audio[i].removeEventListener('play', data.playHandler[i]);
+  }
 }
 
 function vibrate(i, allay) {
@@ -169,45 +183,26 @@ function play_321GO(){
       setTimeout(()=>{vibrate(-1, data.timePoint[0])},40) //data.delay设定为40ms
   });*/
   var audio_ = this.data.audio[0];
-  var can_vibrate = this.data.vibrate_access;
-  console.log(can_vibrate);
-  if (can_vibrate){
-    audio_.addEventListener('play', function () { //为play函数添加监听器
-      setTimeout(()=>{vibrate(-1, data.timePoint[0])},40) //data.delay设定为40ms
-    });
-  }
   audio_.play();
 }
 
 function play_click(){
   var audio_ = this.data.audio[1];
-  var can_vibrate = this.data.vibrate_access;
-  if (can_vibrate){
-    audio_.addEventListener('play', function () { //为play函数添加监听器
-      setTimeout(()=>{vibrate(-1, data.timePoint[1])},40) //data.delay设定为40ms
-    });
-  }
   audio_.play();
 }
 
 function play_hitgate(){
   var audio_ = this.data.audio[2];
-  var can_vibrate = this.data.vibrate_access;
-  if (can_vibrate){
-    audio_.addEventListener('play', function () { //为play函数添加监听器
-      setTimeout(()=>{vibrate(-1, data.timePoint[2])},40) //data.delay设定为40ms
-    });
-  }
   audio_.play();
 }
 
 function play_falling(){
   var audio_ = this.data.audio[3];
-  var can_vibrate = this.data.vibrate_access;
-  if (can_vibrate){
-    audio_.addEventListener('play', function () { //为play函数添加监听器
-      setTimeout(()=>{vibrate(-1, data.timePoint[3])},40) //data.delay设定为40ms
-    });
-  }
   audio_.play();
+}
+
+function createPlayHandler(i){
+  return function(){
+    setTimeout(()=>{vibrate(-1, data.timePoint[i])},40) //data.delay设定为40ms
+  }
 }
