@@ -15,7 +15,7 @@ var data = {
   debug:true,
   playHandler:[],
   can_vibrate:true,
-  platform:"",//设备名称
+  platform:"V2183A",//设备名称
 };
 
 let element = [];
@@ -56,7 +56,7 @@ let contentElement = document.getElementById("content");
 // 初始化元素的文本内容
 
 
-data.platform = navigator.userAgent
+//data.platform = navigator.userAgent
 contentElement.textContent = data.platform;
 
 function openAudio(){
@@ -100,7 +100,10 @@ function vibrate(i, allay) {
     //获得手机型号
     if (this.data.platform.includes('V2183A')){
       //改为密集点振动
-      data.timer = setTimeout(()=>{
+      data.timer = setTimeout(() => {
+        clearTimeout(data.timer)
+        navigator.vibrate(15);
+        if (this.data.debug) console.log(new Date().getTime()+ ' 短震动') ///
         let currentTime = 0; // 当前已经过去的时间
         if(this.data.debug) console.log("原本长震动"+allay[i + 1][1]) ///
         var intervalHandle = setInterval(() => {
@@ -114,7 +117,11 @@ function vibrate(i, allay) {
             intervalHandle = null;
           }
         }, 3);
-      },step)
+
+
+        if (i < allay.length - 2) vibrate(i + 1, allay)
+      }, step)
+     
 
     }else {
       data.timer = setTimeout(() => {
