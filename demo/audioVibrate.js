@@ -98,21 +98,23 @@ function vibrate(i, allay) {
   if (allay[i + 1][1] > 1) {
     if (this.data.debug) console.log('wait' + step) ///
     //获得手机型号
-    console.log(this.data.platform.includes('V2183A'))
     if (this.data.platform.includes('V2183A')){
       //改为密集点振动
-      let currentTime = 0; // 当前已经过去的时间
-      if (this.data.debug) console.log("[密集,time,index] "+ new Date().getTime()+" "+index)
-      var intervalHandle = setInterval(() => {
-        //振动
-        navigator.vibrate(2);//每次振动2ms
-        currentTime += 3; //interval为3ms
+      data.timer = setTimeout(()=>{
+        let currentTime = 0; // 当前已经过去的时间
+        if(this.data.debug) console.log("原本长震动"+allay[i + 1][1]) ///
+        var intervalHandle = setInterval(() => {
+          //振动
+          navigator.vibrate(2);//每次振动2ms
+          if (this.data.debug) console.log("[密集,time] "+ new Date().getTime())
+          currentTime += 3; //interval为3ms
 
-        if (currentTime >= allay[i + 1][1]) {
-          clearInterval(intervalHandle);
-          intervalHandle = null;
-        }
-      }, 3);
+          if (currentTime >= allay[i + 1][1]) {
+            clearInterval(intervalHandle);
+            intervalHandle = null;
+          }
+        }, 3);
+      },step)
 
     }else {
       data.timer = setTimeout(() => {
@@ -199,7 +201,8 @@ function loadbin(path,index) {
     var timelist = [];
    
     transientTime.forEach((element, index) => {
-      console.log([element,transientIntensity[index]])
+      console.log(transientIntensity[index])
+
       timelist.push([element, transientIntensity[index]]);
     });
     ///console.log("timelist")
