@@ -50,10 +50,14 @@ jsondata.forEach((element, index) => {
 console.log(platform);
 console.log(platform.name);
 console.log(platform.version);
+console.log(navigator.userAgent);
+
 let contentElement = document.getElementById("content");
 // 初始化元素的文本内容
-data.platform = platform.name;
-contentElement.textContent = platform.name;
+
+
+data.platform = navigator.userAgent
+contentElement.textContent = data.platform;
 
 function openAudio(){
   console.log('open audio')
@@ -94,7 +98,8 @@ function vibrate(i, allay) {
   if (allay[i + 1][1] > 1) {
     if (this.data.debug) console.log('wait' + step) ///
     //获得手机型号
-    if (this.data.platform == 'V2183A'){
+    console.log(this.data.platform.includes('V2183A'))
+    if (this.data.platform.includes('V2183A')){
       //改为密集点振动
       let currentTime = 0; // 当前已经过去的时间
       if (this.data.debug) console.log("[密集,time,index] "+ new Date().getTime()+" "+index)
