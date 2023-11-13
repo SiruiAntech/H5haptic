@@ -99,6 +99,8 @@ function vibrate(i, allay) {
       let currentTime = 0; // 当前已经过去的时间
       if (this.data.debug) console.log("[密集,time,index] "+ new Date().getTime()+" "+index)
       var intervalHandle = setInterval(() => {
+        //振动
+        navigator.vibrate(2);//每次振动2ms
         currentTime += 3; //interval为3ms
 
         if (currentTime >= allay[i + 1][1]) {
