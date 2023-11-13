@@ -13,7 +13,6 @@ var data = {
   endlong: 28.775,
 
   debug:true,
-  vibrate_access:true,
   playHandler:[]
 };
 
@@ -26,6 +25,7 @@ for (var i=0;i<4;i++){
   var audio_ =  document.createElement("audio");
   audio_.src = audioSrcList[i];
   audio_.preload = "auto";
+  audio_.load();
   element[i] = audio_;
   handler[i] = createPlayHandler(i);
 }
@@ -36,9 +36,20 @@ let jsondata = ['data/321GO.ah', 'data/click.ah','data/hit_gate.ah', 'data/falli
 jsondata.forEach((element, index) => {
   loadbin(element,index)
 });
-
-
+/**
+   猜测：上次测的时候网速好，下载速度快
+   没有触发这种情况
+  
+   应该新设置一个预先加载的操作
+ */
 openVibrate()
+audio_ = data.audio[0]
+audio_.addEventListener('progress',function(){
+  var buffered = audio_.buffered;
+  console.log(buffered);
+  console.log(buffered.length);
+})
+
 
 
 function openAudio(){
@@ -181,23 +192,39 @@ function play_321GO(){
   audio.preload = "auto";
   audio.addEventListener('play', function () { //为play函数添加监听器
       setTimeout(()=>{vibrate(-1, data.timePoint[0])},40) //data.delay设定为40ms
-  });*/
+  });*/ 
   var audio_ = this.data.audio[0];
+  while(audio_.readyState!=4){
+    console.log("loading")
+    audio_.load();
+  }
   audio_.play();
 }
 
 function play_click(){
   var audio_ = this.data.audio[1];
+  while(audio_.readyState!=4){
+    console.log("loading")
+    audio_.load();
+  }
   audio_.play();
 }
 
 function play_hitgate(){
   var audio_ = this.data.audio[2];
+  while(audio_.readyState!=4){
+    console.log("loading")
+    audio_.load();
+  }
   audio_.play();
 }
 
 function play_falling(){
   var audio_ = this.data.audio[3];
+  while(audio_.readyState!=4){
+    console.log("loading")
+    audio_.load();
+  }
   audio_.play();
 }
 
