@@ -15,7 +15,7 @@ var data = {
   debug:true,
   playHandler:[],
   can_vibrate:true,
-  platform:"V2183A",//设备名称
+  platform:"",//设备名称
 };
 
 let element = [];
@@ -56,7 +56,7 @@ let contentElement = document.getElementById("content");
 // 初始化元素的文本内容
 
 
-//data.platform = navigator.userAgent
+data.platform = navigator.userAgent
 contentElement.textContent = data.platform;
 
 function openAudio(){
