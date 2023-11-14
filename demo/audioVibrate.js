@@ -39,12 +39,7 @@ let jsondata = ['data/321GO.ah', 'data/click.ah','data/hit_gate.ah', 'data/falli
 jsondata.forEach((element, index) => {
   loadbin(element,index)
 });
-/**
-   猜测：上次测的时候网速好，下载速度快
-   没有触发这种情况
-  
-   应该新设置一个预先加载的操作
- */
+
 //openVibrate()
 //设备
 console.log(platform);
