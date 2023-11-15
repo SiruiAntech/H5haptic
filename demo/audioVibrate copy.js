@@ -13,33 +13,48 @@ var data = {
   endlong: 28.775,
 
   debug:true,
-  vibrate_access:true,
+  playHandler:[],
+  can_vibrate:true,
+  platform:"",//设备名称
+  jsondata: ['data/321GO.ah', 'data/click.ah','data/hit_gate.ah', 'data/falling.ah']
 };
 
 let element = [];
 element.length = 0;
+let handler = [];
+handler.length = 0;
 let audioSrcList = [data.audio_321GO,data.audio_click,data.audio_hitgate,data.audio_falling]
 for (var i=0;i<4;i++){
   var audio_ =  document.createElement("audio");
   audio_.src = audioSrcList[i];
   audio_.preload = "auto";
-  element[i] = audio_
+  audio_.load();
+  console.log(audio_.readyState)
+  element[i] = audio_;
+  handler[i] = createPlayHandler(i);
 }
 data.audio = element;
+data.playHandler = handler;
 
-let jsondata = ['data/321GO.ah', 'data/click.ah','data/hit_gate.ah', 'data/falling.ah']
+let jsondata = this.data.jsondata
 jsondata.forEach((element, index) => {
   loadbin(element,index)
 });
+
+
+
+data.platform = navigator.userAgent
+
 function openAudio(){
   console.log('open audio')
   for (var i=0;i<4;i++){
     this.data.audio[i].muted = false
+    this.data.audio[i].load();
   }
 }
 function openVibrate(){
-  console.log('open vibrate')
-  this.data.vibrate_access = true
+  
+  this.data.can_vibrate = true;
 }
 function closeAudio(){
   console.log('close audio')
@@ -48,11 +63,15 @@ function closeAudio(){
   }
 }
 function closeVibrate(){
-  console.log('close vibrate')
-  this.data.vibrate_access = false
+  
+  this.data.can_vibrate = false;
 }
 
 function vibrate(i, allay) {
+  if (!this.data.can_vibrate) {
+    clearTimeout(data.timer);
+    return;
+  }
   var delay = -5
   if (i == -1) { //当前是第一个震动
     var step = parseFloat(delay) + parseFloat(allay[i + 1][0]) * 1000; //allay中的时间以秒为单位，step以ms为单位
@@ -64,12 +83,40 @@ function vibrate(i, allay) {
   }
   if (allay[i + 1][1] > 1) {
     if (this.data.debug) console.log('wait' + step) ///
-    data.timer = setTimeout(() => {
-      clearTimeout(data.timer) 
-      navigator.vibrate(allay[i + 1][1]);
-      if(this.data.debug) console.log(new Date().getTime() + ' 长震动'+allay[i + 1][1]) ///
-      if (i < allay.length - 2) vibrate(i + 1, allay)
-    }, step)
+    //获得手机型号
+    if (this.data.platform.includes('V2183A')){
+      //改为密集点振动
+      data.timer = setTimeout(() => {
+        clearTimeout(data.timer)
+        navigator.vibrate(15);
+        if (this.data.debug) console.log(new Date().getTime()+ ' 短震动') ///
+        let currentTime = 0; // 当前已经过去的时间
+        if(this.data.debug) console.log("原本长震动"+allay[i + 1][1]) ///
+        var intervalHandle = setInterval(() => {
+          //振动
+          navigator.vibrate(2);//每次振动2ms
+          if (this.data.debug) console.log("[密集,time] "+ new Date().getTime())
+          currentTime += 3; //interval为3ms
+
+          if (currentTime >= allay[i + 1][1]) {
+            clearInterval(intervalHandle);
+            intervalHandle = null;
+          }
+        }, 3);
+
+
+        if (i < allay.length - 2) vibrate(i + 1, allay)
+      }, step)
+     
+
+    }else {
+      data.timer = setTimeout(() => {
+        clearTimeout(data.timer) 
+        navigator.vibrate(allay[i + 1][1]);
+        if(this.data.debug) console.log(new Date().getTime() + ' 长震动'+allay[i + 1][1]) ///
+        if (i < allay.length - 2) vibrate(i + 1, allay)
+      }, step)
+    }
   } else {
     let stren = 'heavy'
     if (allay[i + 1][1] < 0.3) stren = 'light';
@@ -145,7 +192,10 @@ function loadbin(path,index) {
       }
     }
     var timelist = [];
+   
     transientTime.forEach((element, index) => {
+      console.log(transientIntensity[index])
+
       timelist.push([element, transientIntensity[index]]);
     });
     ///console.log("timelist")
@@ -160,6 +210,23 @@ function loadbin(path,index) {
 }
 
 
+/*function play_321GO(){
+  /*
+  var audio = document.createElement("audio");
+  audio.src=data.audioSrcList[0];
+  audio.preload = "auto";
+  audio.addEventListener('play', function () { //为play函数添加监听器
+      setTimeout(()=>{vibrate(-1, data.timePoint[0])},40) //data.delay设定为40ms
+  });
+  var audio_ = this.data.audio[0];
+  if(audio_.readyState!=4){
+    console.log("loading")
+    audio_.load();
+  }
+  audio_.play();
+}*/
+
+
 function play_321GO(){
   /*
   var audio = document.createElement("audio");
@@ -169,45 +236,42 @@ function play_321GO(){
       setTimeout(()=>{vibrate(-1, data.timePoint[0])},40) //data.delay设定为40ms
   });*/
   var audio_ = this.data.audio[0];
-  var can_vibrate = this.data.vibrate_access;
-  console.log(can_vibrate);
-  if (can_vibrate){
-    audio_.addEventListener('play', function () { //为play函数添加监听器
-      setTimeout(()=>{vibrate(-1, data.timePoint[0])},40) //data.delay设定为40ms
-    });
-  }
+  audio_.addEventListener('play', function () { //为play函数添加监听器
+    setTimeout(()=>{vibrate(-1, data.timePoint[0])},40) //data.delay设定为40ms
+  });
   audio_.play();
 }
 
 function play_click(){
   var audio_ = this.data.audio[1];
-  var can_vibrate = this.data.vibrate_access;
-  if (can_vibrate){
-    audio_.addEventListener('play', function () { //为play函数添加监听器
-      setTimeout(()=>{vibrate(-1, data.timePoint[1])},40) //data.delay设定为40ms
-    });
-  }
+  audio_.addEventListener('play', function () { //为play函数添加监听器
+    setTimeout(()=>{vibrate(-1, data.timePoint[1])},40) //data.delay设定为40ms
+  });
   audio_.play();
 }
 
 function play_hitgate(){
   var audio_ = this.data.audio[2];
-  var can_vibrate = this.data.vibrate_access;
-  if (can_vibrate){
-    audio_.addEventListener('play', function () { //为play函数添加监听器
-      setTimeout(()=>{vibrate(-1, data.timePoint[2])},40) //data.delay设定为40ms
-    });
-  }
+  audio_.addEventListener('play', function () { //为play函数添加监听器
+    setTimeout(()=>{vibrate(-1, data.timePoint[2])},40) //data.delay设定为40ms
+  });
   audio_.play();
 }
 
 function play_falling(){
   var audio_ = this.data.audio[3];
-  var can_vibrate = this.data.vibrate_access;
-  if (can_vibrate){
-    audio_.addEventListener('play', function () { //为play函数添加监听器
-      setTimeout(()=>{vibrate(-1, data.timePoint[3])},40) //data.delay设定为40ms
-    });
-  }
+  audio_.addEventListener('play', function () { //为play函数添加监听器
+    setTimeout(()=>{vibrate(-1, data.timePoint[3])},40) //data.delay设定为40ms
+  });
   audio_.play();
+}
+
+function createPlayHandler(i){
+  return function(){
+    console.log("play "+new Date().getTime())
+    console.log(data.audio[i].readyState+" in playhandler")
+    console.log(data.audio[i].buffered);
+    console.log(data.audio[i].duration);
+    setTimeout(()=>{vibrate(-1, data.timePoint[i])},40) //data.delay设定为40ms
+  }
 }

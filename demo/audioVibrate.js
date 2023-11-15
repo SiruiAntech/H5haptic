@@ -16,6 +16,7 @@ var data = {
   playHandler:[],
   can_vibrate:true,
   platform:"",//设备名称
+  jsondata: ['data/321go_web.ah', 'data/click.ah','data/hit_gate.ah', 'data/falling_web.ah']
 };
 
 let element = [];
@@ -35,24 +36,14 @@ for (var i=0;i<4;i++){
 data.audio = element;
 data.playHandler = handler;
 
-let jsondata = ['data/321GO.ah', 'data/click.ah','data/hit_gate.ah', 'data/falling.ah']
+let jsondata = this.data.jsondata
 jsondata.forEach((element, index) => {
   loadbin(element,index)
 });
 
-//openVibrate()
-//设备
-console.log(platform);
-console.log(platform.name);
-console.log(platform.version);
-console.log(navigator.userAgent);
-
-let contentElement = document.getElementById("content");
-// 初始化元素的文本内容
 
 
 data.platform = navigator.userAgent
-contentElement.textContent = data.platform;
 
 function openAudio(){
   console.log('open audio')
@@ -211,6 +202,7 @@ function loadbin(path,index) {
     ///console.log(timelist)
     
     data.timePoint[index] = timelist
+    console.log(data.timePoint)
     return timelist
   })
   .catch(error => {
